@@ -1,0 +1,8 @@
+/usr/bin/avianitecoin-cli		--	gen_context(system_u:object_r:avianitecoin_exec_t,s0)
+/usr/sbin/avianitecoind		--	gen_context(system_u:object_r:avianitecoin_exec_t,s0)
+/usr/lib(64)?/avianitecoin/avianitecoind		--	gen_context(system_u:object_r:avianitecoin_exec_t,s0)
+
+/etc/avianitecoin(/.*)?		gen_context(system_u:object_r:avianitecoin_conf_t,s0)
+/var/lib/avianitecoin(/.*)?		gen_context(system_u:object_r:avianitecoin_var_lib_t,s0)
+
+(/var)?/run/avianitecoind(/.*)?   gen_context(system_u:object_r:avianitecoin_var_run_t,s0)

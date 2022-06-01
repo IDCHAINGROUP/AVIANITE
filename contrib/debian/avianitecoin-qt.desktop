@@ -1,0 +1,12 @@
+[Desktop Entry]
+Version=1.0
+Name=avianitecoin
+Comment=avianitecoin P2P Cryptocurrency
+Exec=avianitecoin-qt %u
+Terminal=false
+Type=Application
+Icon=avianitecoin128
+MimeType=x-scheme-handler/avianitecoin;
+Categories=Office;Finance;
+StartupWMClass=avianitecoin-qt
+Name[en_IN]=avianitecoin-qt.desktop

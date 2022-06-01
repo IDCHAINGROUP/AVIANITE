@@ -1,0 +1,6 @@
+usr/local/bin/avianitecoin-qt usr/bin
+share/pixmaps/avianitecoin32.xpm usr/share/pixmaps
+share/pixmaps/avianitecoin16.xpm usr/share/pixmaps
+share/pixmaps/avianitecoin128.png usr/share/pixmaps
+debian/avianitecoin-qt.desktop usr/share/applications
+debian/avianitecoin-qt.protocol usr/share/kde4/services/

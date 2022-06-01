@@ -1,0 +1,3 @@
+usr/local/bin/avianitecoind usr/bin
+usr/local/bin/avianitecoin-cli usr/bin
+debian/examples/avianitecoin.conf etc/avianitecoin

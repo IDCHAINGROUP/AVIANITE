@@ -1,0 +1,725 @@
+# Copyright (c) 2013-2016 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+bin_PROGRAMS += qt/avianitecoin-qt
+EXTRA_LIBRARIES += qt/libbitcoinqt.a
+
+# avianitecoin qt core #
+include Makefile.qt_locale.include
+
+QT_FORMS_UI = \
+  qt/forms/addressbookpage.ui \
+  qt/forms/askpassphrasedialog.ui \
+  qt/forms/coincontroldialog.ui \
+  qt/forms/editaddressdialog.ui \
+  qt/forms/helpmessagedialog.ui \
+  qt/forms/intro.ui \
+  qt/forms/openuridialog.ui \
+  qt/forms/optionsdialog.ui \
+  qt/forms/rpcconsole.ui \
+  qt/avianitecoin/forms/loadingdialog.ui \
+  qt/avianitecoin/forms/snackbar.ui \
+  qt/avianitecoin/forms/navmenuwidget.ui \
+  qt/avianitecoin/forms/lockunlock.ui \
+  qt/avianitecoin/forms/expandablebutton.ui \
+  qt/avianitecoin/forms/receivedialog.ui \
+  qt/avianitecoin/forms/topbar.ui \
+  qt/avianitecoin/forms/txrow.ui \
+  qt/avianitecoin/forms/dashboardwidget.ui \
+  qt/avianitecoin/forms/addresslabelrow.ui \
+  qt/avianitecoin/forms/contactdropdownrow.ui \
+  qt/avianitecoin/forms/mninfodialog.ui \
+  qt/avianitecoin/forms/optionbutton.ui \
+  qt/avianitecoin/forms/masternodewizarddialog.ui \
+  qt/avianitecoin/forms/mnrow.ui \
+  qt/avianitecoin/forms/masternodeswidget.ui \
+  qt/avianitecoin/forms/myaddressrow.ui \
+  qt/avianitecoin/forms/csrow.ui \
+  qt/avianitecoin/forms/sendchangeaddressdialog.ui \
+  qt/avianitecoin/forms/sendconfirmdialog.ui \
+  qt/avianitecoin/forms/sendcustomfeedialog.ui \
+  qt/avianitecoin/forms/sendchangeaddressdialog.ui \
+  qt/avianitecoin/forms/sendmultirow.ui \
+  qt/avianitecoin/forms/send.ui \
+  qt/avianitecoin/forms/addnewaddressdialog.ui \
+  qt/avianitecoin/forms/addnewcontactdialog.ui \
+  qt/avianitecoin/forms/requestdialog.ui \
+  qt/avianitecoin/forms/receivewidget.ui \
+  qt/avianitecoin/forms/tooltipmenu.ui \
+  qt/avianitecoin/forms/addresseswidget.ui \
+  qt/avianitecoin/forms/defaultdialog.ui \
+  qt/avianitecoin/forms/coldstakingwidget.ui \
+  qt/avianitecoin/settings/forms/settingsbackupwallet.ui \
+  qt/avianitecoin/settings/forms/settingsexportcsv.ui \
+  qt/avianitecoin/settings/forms/settingsbittoolwidget.ui \
+  qt/avianitecoin/settings/forms/settingsconsolewidget.ui \
+  qt/avianitecoin/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/avianitecoin/settings/forms/settingsfaqwidget.ui \
+  qt/avianitecoin/settings/forms/settingsinformationwidget.ui \
+  qt/avianitecoin/settings/forms/settingsmainoptionswidget.ui \
+  qt/avianitecoin/settings/forms/settingsmultisenddialog.ui \
+  qt/avianitecoin/settings/forms/settingsmultisendwidget.ui \
+  qt/avianitecoin/settings/forms/settingssignmessagewidgets.ui \
+  qt/avianitecoin/settings/forms/settingswalletoptionswidget.ui \
+  qt/avianitecoin/settings/forms/settingswalletrepairwidget.ui \
+  qt/avianitecoin/settings/forms/settingswidget.ui \
+  qt/avianitecoin/forms/welcomecontentwidget.ui \
+  qt/avianitecoin/forms/splash.ui
+
+QT_MOC_CPP = \
+  qt/moc_addressbookpage.cpp \
+  qt/moc_addresstablemodel.cpp \
+  qt/moc_askpassphrasedialog.cpp \
+  qt/moc_bantablemodel.cpp \
+  qt/moc_bitcoinaddressvalidator.cpp \
+  qt/avianitecoin/moc_avianitecoingui.cpp \
+  qt/moc_bitcoinunits.cpp \
+  qt/moc_clientmodel.cpp \
+  qt/moc_coincontroldialog.cpp \
+  qt/moc_coincontroltreewidget.cpp \
+  qt/moc_csvmodelwriter.cpp \
+  qt/moc_editaddressdialog.cpp \
+  qt/moc_guiutil.cpp \
+  qt/moc_intro.cpp \
+  qt/moc_macdockiconhandler.cpp \
+  qt/moc_macnotificationhandler.cpp \
+  qt/moc_notificator.cpp \
+  qt/moc_openuridialog.cpp \
+  qt/moc_optionsdialog.cpp \
+  qt/moc_optionsmodel.cpp \
+  qt/moc_peertablemodel.cpp \
+  qt/moc_paymentserver.cpp \
+  qt/moc_qvalidatedlineedit.cpp \
+  qt/moc_qvaluecombobox.cpp \
+  qt/moc_recentrequeststablemodel.cpp \
+  qt/moc_rpcconsole.cpp \
+  qt/moc_splashscreen.cpp \
+  qt/moc_trafficgraphwidget.cpp \
+  qt/moc_transactiondesc.cpp \
+  qt/moc_transactionfilterproxy.cpp \
+  qt/moc_transactiontablemodel.cpp \
+  qt/moc_utilitydialog.cpp \
+  qt/moc_walletmodel.cpp \
+  qt/avianitecoin/moc_loadingdialog.cpp \
+  qt/avianitecoin/moc_pwidget.cpp \
+  qt/avianitecoin/moc_focuseddialog.cpp \
+  qt/avianitecoin/moc_snackbar.cpp \
+  qt/avianitecoin/moc_navmenuwidget.cpp \
+  qt/avianitecoin/moc_lockunlock.cpp \
+  qt/avianitecoin/moc_expandablebutton.cpp \
+  qt/avianitecoin/moc_furabstractlistitemdelegate.cpp \
+  qt/avianitecoin/moc_receivedialog.cpp \
+  qt/avianitecoin/moc_pfborderimage.cpp \
+  qt/avianitecoin/moc_topbar.cpp \
+  qt/avianitecoin/moc_txrow.cpp \
+  qt/avianitecoin/moc_dashboardwidget.cpp \
+  qt/avianitecoin/moc_addresslabelrow.cpp \
+  qt/avianitecoin/moc_contactdropdownrow.cpp \
+  qt/avianitecoin/moc_mninfodialog.cpp \
+  qt/avianitecoin/moc_optionbutton.cpp \
+  qt/avianitecoin/moc_coldstakingmodel.cpp \
+  qt/avianitecoin/moc_mnmodel.cpp \
+  qt/avianitecoin/moc_masternodewizarddialog.cpp \
+  qt/avianitecoin/moc_mnrow.cpp \
+  qt/avianitecoin/moc_masternodeswidget.cpp \
+  qt/avianitecoin/moc_myaddressrow.cpp \
+  qt/avianitecoin/moc_csrow.cpp \
+  qt/avianitecoin/moc_contactsdropdown.cpp \
+  qt/avianitecoin/moc_sendchangeaddressdialog.cpp \
+  qt/avianitecoin/moc_sendconfirmdialog.cpp \
+  qt/avianitecoin/moc_sendcustomfeedialog.cpp \
+  qt/avianitecoin/moc_sendchangeaddressdialog.cpp \
+  qt/avianitecoin/moc_sendmultirow.cpp \
+  qt/avianitecoin/moc_send.cpp \
+  qt/avianitecoin/moc_addnewaddressdialog.cpp \
+  qt/avianitecoin/moc_addnewcontactdialog.cpp \
+  qt/avianitecoin/moc_requestdialog.cpp \
+  qt/avianitecoin/moc_receivewidget.cpp \
+  qt/avianitecoin/moc_tooltipmenu.cpp \
+  qt/avianitecoin/moc_addresseswidget.cpp \
+  qt/avianitecoin/moc_defaultdialog.cpp \
+  qt/avianitecoin/moc_coldstakingwidget.cpp \
+  qt/avianitecoin/settings/moc_settingsbackupwallet.cpp \
+  qt/avianitecoin/settings/moc_settingsexportcsv.cpp \
+  qt/avianitecoin/settings/moc_settingsbittoolwidget.cpp \
+  qt/avianitecoin/settings/moc_settingsconsolewidget.cpp \
+  qt/avianitecoin/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/avianitecoin/settings/moc_settingsfaqwidget.cpp \
+  qt/avianitecoin/settings/moc_settingsinformationwidget.cpp \
+  qt/avianitecoin/settings/moc_settingsmainoptionswidget.cpp \
+  qt/avianitecoin/settings/moc_settingsmultisenddialog.cpp \
+  qt/avianitecoin/settings/moc_settingsmultisendwidget.cpp \
+  qt/avianitecoin/settings/moc_settingssignmessagewidgets.cpp \
+  qt/avianitecoin/settings/moc_settingswalletoptionswidget.cpp \
+  qt/avianitecoin/settings/moc_settingswalletrepairwidget.cpp \
+  qt/avianitecoin/settings/moc_settingswidget.cpp \
+  qt/avianitecoin/moc_welcomecontentwidget.cpp \
+  qt/avianitecoin/moc_splash.cpp
+
+BITCOIN_MM = \
+  qt/macdockiconhandler.mm \
+  qt/macnotificationhandler.mm
+
+QT_MOC = \
+  qt/avianitecoin.moc \
+  qt/intro.moc \
+  qt/rpcconsole.moc \
+  qt/avianitecoin/settings/moc_settingsconsolewidget.cpp
+
+QT_QRC_CPP = qt/qrc_avianitecoin.cpp
+if TARGET_WINDOWS
+QT_QRC = qt/avianitecoin.qrc
+else
+QT_QRC = qt/avianitecoin1.qrc
+endif
+QT_QRC_LOCALE_CPP = qt/qrc_avianitecoin_locale.cpp
+QT_QRC_LOCALE = qt/avianitecoin_locale.qrc
+
+PROTOBUF_CC = qt/paymentrequest.pb.cc
+PROTOBUF_H = qt/paymentrequest.pb.h
+PROTOBUF_PROTO = qt/paymentrequest.proto
+
+BITCOIN_QT_H = \
+  qt/addressbookpage.h \
+  qt/addresstablemodel.h \
+  qt/askpassphrasedialog.h \
+  qt/bantablemodel.h \
+  qt/bitcoinaddressvalidator.h \
+  qt/avianitecoin/avianitecoingui.h \
+  qt/bitcoinunits.h \
+  qt/clientmodel.h \
+  qt/coincontroldialog.h \
+  qt/coincontroltreewidget.h \
+  qt/csvmodelwriter.h \
+  qt/editaddressdialog.h \
+  qt/guiconstants.h \
+  qt/guiutil.h \
+  qt/intro.h \
+  qt/macdockiconhandler.h \
+  qt/macnotificationhandler.h \
+  qt/networkstyle.h \
+  qt/notificator.h \
+  qt/openuridialog.h \
+  qt/optionsdialog.h \
+  qt/optionsmodel.h \
+  qt/paymentrequestplus.h \
+  qt/paymentserver.h \
+  qt/peertablemodel.h \
+  qt/platformstyle.h \
+  qt/qvalidatedlineedit.h \
+  qt/qvaluecombobox.h \
+  qt/recentrequeststablemodel.h \
+  qt/rpcconsole.h \
+  qt/splashscreen.h \
+  qt/trafficgraphwidget.h \
+  qt/transactiondesc.h \
+  qt/transactionfilterproxy.h \
+  qt/transactionrecord.h \
+  qt/transactiontablemodel.h \
+  qt/utilitydialog.h \
+  qt/walletmodel.h \
+  qt/walletmodeltransaction.h \
+  qt/avianitecoin/prunnable.h \
+  qt/avianitecoin/pfborderimage.h \
+  qt/avianitecoin/loadingdialog.h \
+  qt/winshutdownmonitor.h \
+  qt/avianitecoin/pwidget.h \
+  qt/avianitecoin/focuseddialog.h \
+  qt/avianitecoin/guitransactionsutils.h \
+  qt/avianitecoin/snackbar.h \
+  qt/avianitecoin/navmenuwidget.h \
+  qt/avianitecoin/lockunlock.h \
+  qt/avianitecoin/receivedialog.h \
+  qt/avianitecoin/furlistrow.h \
+  qt/avianitecoin/furabstractlistitemdelegate.h \
+  qt/avianitecoin/txviewholder.h \
+  qt/avianitecoin/qtutils.h \
+  qt/avianitecoin/expandablebutton.h \
+  qt/avianitecoin/topbar.h \
+  qt/avianitecoin/txrow.h \
+  qt/avianitecoin/addressholder.h \
+  qt/avianitecoin/addressfilterproxymodel.h \
+  qt/avianitecoin/dashboardwidget.h \
+  qt/avianitecoin/addresslabelrow.h \
+  qt/avianitecoin/contactdropdownrow.h \
+  qt/avianitecoin/mninfodialog.h \
+  qt/avianitecoin/optionbutton.h \
+  qt/avianitecoin/coldstakingmodel.h \
+  qt/avianitecoin/mnmodel.h \
+  qt/avianitecoin/masternodewizarddialog.h \
+  qt/avianitecoin/mnrow.h \
+  qt/avianitecoin/masternodeswidget.h \
+  qt/avianitecoin/myaddressrow.h \
+  qt/avianitecoin/csrow.h \
+  qt/avianitecoin/contactsdropdown.h \
+  qt/avianitecoin/sendchangeaddressdialog.h \
+  qt/avianitecoin/sendconfirmdialog.h \
+  qt/avianitecoin/sendcustomfeedialog.h \
+  qt/avianitecoin/sendchangeaddressdialog.h \
+  qt/avianitecoin/sendmultirow.h \
+  qt/avianitecoin/send.h \
+  qt/avianitecoin/addnewaddressdialog.h \
+  qt/avianitecoin/addnewcontactdialog.h \
+  qt/avianitecoin/requestdialog.h \
+  qt/avianitecoin/receivewidget.h \
+  qt/avianitecoin/tooltipmenu.h \
+  qt/avianitecoin/addresseswidget.h \
+  qt/avianitecoin/defaultdialog.h \
+  qt/avianitecoin/coldstakingwidget.h \
+  qt/avianitecoin/settings/settingsbackupwallet.h \
+  qt/avianitecoin/settings/settingsexportcsv.h \
+  qt/avianitecoin/settings/settingsbittoolwidget.h \
+  qt/avianitecoin/settings/settingsconsolewidget.h \
+  qt/avianitecoin/settings/settingsdisplayoptionswidget.h \
+  qt/avianitecoin/settings/settingsfaqwidget.h \
+  qt/avianitecoin/settings/settingsinformationwidget.h \
+  qt/avianitecoin/settings/settingsmainoptionswidget.h \
+  qt/avianitecoin/settings/settingsmultisenddialog.h \
+  qt/avianitecoin/settings/settingsmultisendwidget.h \
+  qt/avianitecoin/settings/settingssignmessagewidgets.h \
+  qt/avianitecoin/settings/settingswalletoptionswidget.h \
+  qt/avianitecoin/settings/settingswalletrepairwidget.h \
+  qt/avianitecoin/settings/settingswidget.h \
+  qt/avianitecoin/welcomecontentwidget.h \
+  qt/avianitecoin/splash.h
+
+RES_ICONS = \
+  qt/res/icons/bitcoin.ico \
+  qt/res/icons/bitcoin.png \
+  qt/res/icons/lock_closed.png \
+  qt/res/icons/lock_open.png \
+  qt/res/icons/ic-transaction-received.png \
+  qt/res/icons/ic-transaction-mint.png \
+  qt/res/icons/ic-transaction-sent.png \
+  qt/res/icons/ic-transaction-staked.png \
+  qt/avianitecoin/res/img/bg-dashboard-banner.png \
+  qt/avianitecoin/res/img/bg-multi-number-dark.png \
+  qt/avianitecoin/res/img/ic-check-locked.png \
+  qt/avianitecoin/res/img/ic-nav-address.png \
+  qt/avianitecoin/res/img/ic-update.png \
+  qt/avianitecoin/res/img/bg-multi-number.png \
+  qt/avianitecoin/res/img/ic-check-mint-off.png \
+  qt/avianitecoin/res/img/ic-nav-cold-staking.png \
+  qt/avianitecoin/res/img/ic-nav-cold-staking-active.png \
+  qt/avianitecoin/res/img/ic-nav-dashboard-active.png \
+  qt/avianitecoin/res/img/ic-wallet-status-locked.png \
+  qt/avianitecoin/res/img/bg-splash.png \
+  qt/avianitecoin/res/img/bg-splash.png \
+  qt/avianitecoin/res/img/ic-check-mint.png \
+  qt/avianitecoin/res/img/ic-nav-dashboard-hover.png \
+  qt/avianitecoin/res/img/ic-wallet-status-staking.png \
+  qt/avianitecoin/res/img/ic-check-peers-off.png \
+  qt/avianitecoin/res/img/ic-nav-dashboard.png \
+  qt/avianitecoin/res/img/ic-wallet-status-unlocked.png \
+  qt/avianitecoin/res/img/ic-check-peers.png \
+  qt/avianitecoin/res/img/ic-nav-master-active.png \
+  qt/avianitecoin/res/img/ic-watch-password-white.png \
+  qt/avianitecoin/res/img/bg-welcome-container.jpg \
+  qt/avianitecoin/res/img/bg-welcome-container.png \
+  qt/avianitecoin/res/img/bg-welcome-container.png \
+  qt/avianitecoin/res/img/bg-welcome-container@2x.png \
+  qt/avianitecoin/res/img/bg-welcome-container@3x.png \
+  qt/avianitecoin/res/img/ic-check-staking-off.png \
+  qt/avianitecoin/res/img/ic-nav-master-hover.png \
+  qt/avianitecoin/res/img/ic-watch-password.png \
+  qt/avianitecoin/res/img/bg-welcome.jpg \
+  qt/avianitecoin/res/img/bg-welcome.png \
+  qt/avianitecoin/res/img/bg-welcome@2x.jpg \
+  qt/avianitecoin/res/img/bg-welcome@3x.jpg \
+  qt/avianitecoin/res/img/bg-welcome.png \
+  qt/avianitecoin/res/img/ic-check-staking.png \
+  qt/avianitecoin/res/img/ic-nav-master.png \
+  qt/avianitecoin/res/img/img-dashboard-banner.jpg \
+  qt/avianitecoin/res/img/btn-radio-active.png \
+  qt/avianitecoin/res/img/ic-check-sync-off.png \
+  qt/avianitecoin/res/img/ic-nav-privacy-active.png \
+  qt/avianitecoin/res/img/img-empty-contacts.png \
+  qt/avianitecoin/res/img/btn-radio-off.png \
+  qt/avianitecoin/res/img/ic-check-sync.png \
+  qt/avianitecoin/res/img/ic-nav-privacy-hover.png \
+  qt/avianitecoin/res/img/img-empty-dark-contacts.png \
+  qt/avianitecoin/res/img/ic-contact-arrow-down.png \
+  qt/avianitecoin/res/img/ic-contact-arrow-down-white.png \
+  qt/avianitecoin/res/img/ic-check-sync.png \
+  qt/avianitecoin/res/img/ic-check-faq.png \
+  qt/avianitecoin/res/img/ic-nav-privacy.png \
+  qt/avianitecoin/res/img/img-empty-dark-error.png \
+  qt/avianitecoin/res/img/ic-add-label.png \
+  qt/avianitecoin/res/img/ic-pending.png \
+  qt/avianitecoin/res/img/ic-check-theme-dark.png \
+  qt/avianitecoin/res/img/ic-nav-receive-active.png \
+  qt/avianitecoin/res/img/img-empty-dark-masternode.png \
+  qt/avianitecoin/res/img/ic-add-liliac.png \
+  qt/avianitecoin/res/img/ic-check-theme-light.png \
+  qt/avianitecoin/res/img/ic-nav-receive-hover.png \
+  qt/avianitecoin/res/img/img-empty-dark-multisend.png \
+  qt/avianitecoin/res/img/ic-add-purple.png \
+  qt/avianitecoin/res/img/ic-check-white.png \
+  qt/avianitecoin/res/img/ic-nav-receive.png \
+  qt/avianitecoin/res/img/img-empty-dark-peers.png \
+  qt/avianitecoin/res/img/ic-add.png \
+  qt/avianitecoin/res/img/ic-check.png \
+  qt/avianitecoin/res/img/ic-nav-send-active.png \
+  qt/avianitecoin/res/img/img-empty-dark-staking-off.png \
+  qt/avianitecoin/res/img/img-empty-dark-staking-on.png \
+  qt/avianitecoin/res/img/ic-address-book-grey.png \
+  qt/avianitecoin/res/img/ic-chevron-left.png \
+  qt/avianitecoin/res/img/ic-nav-send-hover.png \
+  qt/avianitecoin/res/img/img-empty-dark-transactions.png \
+  qt/avianitecoin/res/img/ic-address-book-white.png \
+  qt/avianitecoin/res/img/ic-chevron-right.png \
+  qt/avianitecoin/res/img/ic-nav-send.png \
+  qt/avianitecoin/res/img/img-empty-error.png \
+  qt/avianitecoin/res/img/ic-address-book.png \
+  qt/avianitecoin/res/img/ic-clear-liliac.png \
+  qt/avianitecoin/res/img/ic-nav-settings-active.png \
+  qt/avianitecoin/res/img/img-empty-masternode.png \
+  qt/avianitecoin/res/img/ic-address-send-white.png \
+  qt/avianitecoin/res/img/ic-clear-purple.png \
+  qt/avianitecoin/res/img/ic-nav-settings-hover.png \
+  qt/avianitecoin/res/img/img-empty-multisend.png \
+  qt/avianitecoin/res/img/ic-address-send.png \
+  qt/avianitecoin/res/img/ic-close-white.png \
+  qt/avianitecoin/res/img/ic-nav-settings.png \
+  qt/avianitecoin/res/img/img-empty-peers.png \
+  qt/avianitecoin/res/img/img-empty-privacy.png \
+  qt/avianitecoin/res/img/img-empty-privacy-dark.png \
+  qt/avianitecoin/res/img/ic-arrow-drop-down-white.png \
+  qt/avianitecoin/res/img/ic-close.png \
+  qt/avianitecoin/res/img/ic-radio-liliac-on.png \
+  qt/avianitecoin/res/img/img-empty-staking-off.png \
+  qt/avianitecoin/res/img/ic-arrow-drop-down.png \
+  qt/avianitecoin/res/img/ic-coin-avianitecoin.png \
+  qt/avianitecoin/res/img/ic-receive-off.png \
+  qt/avianitecoin/res/img/img-empty-staking-on.png \
+  qt/avianitecoin/res/img/ic-arrow-drop-up-white.png \
+  qt/avianitecoin/res/img/ic-receive-on.png \
+  qt/avianitecoin/res/img/img-empty-transactions.png \
+  qt/avianitecoin/res/img/ic-arrow-drop-up.png \
+  qt/avianitecoin/res/img/ic-received.png \
+  qt/avianitecoin/res/img/img-logo-avianitecoin.png \
+  qt/avianitecoin/res/img/ic-arrow-drop-white-down.png \
+  qt/avianitecoin/res/img/ic-combo-box.png \
+  qt/avianitecoin/res/img/ic-send.png \
+  qt/avianitecoin/res/img/img-logo-avianitecoin@2x.png \
+  qt/avianitecoin/res/img/ic-arrow-purple-down.png \
+  qt/avianitecoin/res/img/ic-connect.png \
+  qt/avianitecoin/res/img/ic-submenu-lock.png \
+  qt/avianitecoin/res/img/img-logo-avianitecoin@3x.png \
+  qt/avianitecoin/res/img/img-logo-avianitecoin.png \
+  qt/avianitecoin/res/img/ic-arrow-right-white.png \
+  qt/avianitecoin/res/img/ic-arrow-left-white.png \
+  qt/avianitecoin/res/img/ic-arrow-left.png \
+  qt/avianitecoin/res/img/ic-copy-liliac.png \
+  qt/avianitecoin/res/img/ic-submenu-staking.png \
+  qt/avianitecoin/res/img/img-nav-logo-avianitecoin.png \
+  qt/avianitecoin/res/img/ic-arrow-right.png \
+  qt/avianitecoin/res/img/ic-copy.png \
+  qt/avianitecoin/res/img/ic-copy-big.png \
+  qt/avianitecoin/res/img/ic-copy-big-white.png \
+  qt/avianitecoin/res/img/ic-submenu-unlock.png \
+  qt/avianitecoin/res/img/img-nav-logo.png \
+  qt/avianitecoin/res/img/ic-arrow-white-left.png \
+  qt/avianitecoin/res/img/ic-exit.png \
+  qt/avianitecoin/res/img/ic-switch-liliac-on.png \
+  qt/avianitecoin/res/img/img-nav-logo.png \
+  qt/avianitecoin/res/img/ic-arrow-white-right.png \
+  qt/avianitecoin/res/img/ic-expand.png \
+  qt/avianitecoin/res/img/ic-switch-off.png \
+  qt/avianitecoin/res/img/img-qr-test-big.png \
+  qt/avianitecoin/res/img/ic-check-active.png \
+  qt/avianitecoin/res/img/ic-folder.png \
+  qt/avianitecoin/res/img/ic-switch-on.png \
+  qt/avianitecoin/res/img/img-qr-test.png \
+  qt/avianitecoin/res/img/ic-check-box.png \
+  qt/avianitecoin/res/img/ic-check-box-dark-active.png \
+  qt/avianitecoin/res/img/ic-check-box-indeterminate.png \
+  qt/avianitecoin/res/img/ic-check-box-liliac-indeterminate.png \
+  qt/avianitecoin/res/img/ic-label-liliac.png \
+  qt/avianitecoin/res/img/ic-transaction-warning.png \
+  qt/avianitecoin/res/img/ic-transaction-mint.png \
+  qt/avianitecoin/res/img/ic-transaction-mint-inactive.png \
+  qt/avianitecoin/res/img/ic-check-cold-staking.png \
+  qt/avianitecoin/res/img/ic-check-cold-staking-off.png \
+  qt/avianitecoin/res/img/ic-check-cold-staking-enabled.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-cs-contract.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-cs-contract-inactive.png \
+  qt/avianitecoin/res/img/img-qr.png \
+  qt/avianitecoin/res/img/ic-check-connect-off.png \
+  qt/avianitecoin/res/img/ic-check-tor-off.png \
+  qt/avianitecoin/res/img/ic-check-tor.png \
+  qt/avianitecoin/res/img/ic-label.png \
+  qt/avianitecoin/res/img/ic-transaction-received.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-received.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-warning.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-mint.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-mint-inactive.png \
+  qt/avianitecoin/res/img/ic-transaction-received-inactive.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-received-inactive.png \
+  qt/avianitecoin/res/img/img-welcome-step1.png \
+  qt/avianitecoin/res/img/ic-check-connect.png \
+  qt/avianitecoin/res/img/ic-menu-hover.png \
+  qt/avianitecoin/res/img/ic-transaction-sent.png \
+  qt/avianitecoin/res/img/ic-transaction-sent-inactive.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-sent.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-sent-inactive.png \
+  qt/avianitecoin/res/img/img-welcome-step2.png \
+  qt/avianitecoin/res/img/ic-check-dark.png \
+  qt/avianitecoin/res/img/ic-mint.png \
+  qt/avianitecoin/res/img/ic-transaction-staked.png \
+  qt/avianitecoin/res/img/ic-transaction-staked-inactive.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-staked.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-staked-inactive.png \
+  qt/avianitecoin/res/img/img-welcome-step3.png \
+  qt/avianitecoin/res/img/ic-check-liliac-on.png \
+  qt/avianitecoin/res/img/ic-nav-address-active.png \
+  qt/avianitecoin/res/img/ic-unlock-staking.png \
+  qt/avianitecoin/res/img/img-welcome-step4.png \
+  qt/avianitecoin/res/img/ic-check-locked-off.png \
+  qt/avianitecoin/res/img/ic-nav-address-hover.png \
+  qt/avianitecoin/res/img/ic-update-liliac.png \
+  qt/avianitecoin/res/img/ic-arrow-drop-down-purple.png \
+  qt/avianitecoin/res/img/ic-arrow-drop-up-purple.png \
+  qt/avianitecoin/res/img/ic-check-liliac-indeterminate.png \
+  qt/avianitecoin/res/img/ic-check-box-liliac-indeterminate.png \
+  qt/avianitecoin/res/img/ic-transaction-stake-delegated.png \
+  qt/avianitecoin/res/img/ic-transaction-stake-delegated-inactive.png \
+  qt/avianitecoin/res/img/ic-transaction-stake-hot.png \
+  qt/avianitecoin/res/img/ic-transaction-stake-hot-inactive.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-stake-hot.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-stake-hot-inactive.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-stake-delegated.png \
+  qt/avianitecoin/res/img/dark/ic-transaction-stake-delegated-inactive.png \
+  qt/avianitecoin/res/img/ic-transaction-cs-contract.png \
+  qt/avianitecoin/res/img/ic-transaction-cs-contract-inactive.png \
+  qt/avianitecoin/res/img/ic-check-box-indeterminate.png \
+  qt/avianitecoin/res/img/ani-loading-dark.gif \
+  qt/avianitecoin/res/img/ani-loading.gif
+
+
+
+BITCOIN_QT_BASE_CPP = \
+  qt/bantablemodel.cpp \
+  qt/bitcoinaddressvalidator.cpp \
+  qt/avianitecoin/avianitecoingui.cpp \
+  qt/bitcoinunits.cpp \
+  qt/clientmodel.cpp \
+  qt/csvmodelwriter.cpp \
+  qt/guiutil.cpp \
+  qt/intro.cpp \
+  qt/networkstyle.cpp \
+  qt/notificator.cpp \
+  qt/optionsdialog.cpp \
+  qt/optionsmodel.cpp \
+  qt/peertablemodel.cpp \
+  qt/platformstyle.cpp \
+  qt/qvalidatedlineedit.cpp \
+  qt/qvaluecombobox.cpp \
+  qt/rpcconsole.cpp \
+  qt/splashscreen.cpp \
+  qt/trafficgraphwidget.cpp \
+  qt/utilitydialog.cpp
+
+BITCOIN_QT_WINDOWS_CPP = qt/winshutdownmonitor.cpp
+
+BITCOIN_QT_WALLET_CPP = \
+  qt/addressbookpage.cpp \
+  qt/addresstablemodel.cpp \
+  qt/askpassphrasedialog.cpp \
+  qt/coincontroldialog.cpp \
+  qt/coincontroltreewidget.cpp \
+  qt/editaddressdialog.cpp \
+  qt/openuridialog.cpp \
+  qt/paymentrequestplus.cpp \
+  qt/paymentserver.cpp \
+  qt/recentrequeststablemodel.cpp \
+  qt/transactiondesc.cpp \
+  qt/transactionfilterproxy.cpp \
+  qt/transactionrecord.cpp \
+  qt/transactiontablemodel.cpp \
+  qt/walletmodel.cpp \
+  qt/walletmodeltransaction.cpp \
+  qt/avianitecoin/loadingdialog.cpp \
+  qt/avianitecoin/pwidget.cpp \
+  qt/avianitecoin/focuseddialog.cpp \
+  qt/avianitecoin/guitransactionsutils.cpp \
+  qt/avianitecoin/snackbar.cpp \
+  qt/avianitecoin/navmenuwidget.cpp \
+  qt/avianitecoin/lockunlock.cpp \
+  qt/avianitecoin/receivedialog.cpp \
+  qt/avianitecoin/furabstractlistitemdelegate.cpp \
+  qt/avianitecoin/txviewholder.cpp \
+  qt/avianitecoin/qtutils.cpp \
+  qt/avianitecoin/expandablebutton.cpp \
+  qt/avianitecoin/topbar.cpp \
+  qt/avianitecoin/txrow.cpp \
+  qt/avianitecoin/addressholder.cpp \
+  qt/avianitecoin/addressfilterproxymodel.cpp \
+  qt/avianitecoin/dashboardwidget.cpp \
+  qt/avianitecoin/addresslabelrow.cpp \
+  qt/avianitecoin/contactdropdownrow.cpp \
+  qt/avianitecoin/contactsdropdown.cpp \
+  qt/avianitecoin/optionbutton.cpp \
+  qt/avianitecoin/mninfodialog.cpp \
+  qt/avianitecoin/coldstakingmodel.cpp \
+  qt/avianitecoin/mnmodel.cpp \
+  qt/avianitecoin/masternodewizarddialog.cpp \
+  qt/avianitecoin/mnrow.cpp \
+  qt/avianitecoin/masternodeswidget.cpp \
+  qt/avianitecoin/myaddressrow.cpp \
+  qt/avianitecoin/csrow.cpp \
+  qt/avianitecoin/sendchangeaddressdialog.cpp \
+  qt/avianitecoin/sendconfirmdialog.cpp \
+  qt/avianitecoin/sendcustomfeedialog.cpp \
+  qt/avianitecoin/sendchangeaddressdialog.cpp \
+  qt/avianitecoin/sendmultirow.cpp \
+  qt/avianitecoin/send.cpp \
+  qt/avianitecoin/addnewaddressdialog.cpp \
+  qt/avianitecoin/addnewcontactdialog.cpp \
+  qt/avianitecoin/requestdialog.cpp \
+  qt/avianitecoin/receivewidget.cpp \
+  qt/avianitecoin/tooltipmenu.cpp \
+  qt/avianitecoin/addresseswidget.cpp \
+  qt/avianitecoin/defaultdialog.cpp \
+  qt/avianitecoin/coldstakingwidget.cpp \
+  qt/avianitecoin/settings/settingsbackupwallet.cpp \
+  qt/avianitecoin/settings/settingsexportcsv.cpp \
+  qt/avianitecoin/settings/settingsbittoolwidget.cpp \
+  qt/avianitecoin/settings/settingsconsolewidget.cpp \
+  qt/avianitecoin/settings/settingsdisplayoptionswidget.cpp \
+  qt/avianitecoin/settings/settingsfaqwidget.cpp \
+  qt/avianitecoin/settings/settingsinformationwidget.cpp \
+  qt/avianitecoin/settings/settingsmainoptionswidget.cpp \
+  qt/avianitecoin/settings/settingsmultisenddialog.cpp \
+  qt/avianitecoin/settings/settingsmultisendwidget.cpp \
+  qt/avianitecoin/settings/settingssignmessagewidgets.cpp \
+  qt/avianitecoin/settings/settingswalletoptionswidget.cpp \
+  qt/avianitecoin/settings/settingswalletrepairwidget.cpp \
+  qt/avianitecoin/settings/settingswidget.cpp \
+  qt/avianitecoin/welcomecontentwidget.cpp \
+  qt/avianitecoin/splash.cpp
+
+
+BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += $(BITCOIN_QT_WINDOWS_CPP)
+endif
+if ENABLE_WALLET
+BITCOIN_QT_CPP += $(BITCOIN_QT_WALLET_CPP)
+endif
+
+RES_IMAGES = \
+  qt/res/images/about.png \
+  qt/res/images/avianitecoin.png
+
+RES_CSS = \
+  qt/res/css/default.css \
+  qt/avianitecoin/res/css/style_dark.css \
+  qt/avianitecoin/res/css/style_light.css
+
+BITCOIN_RC = qt/res/avianitecoin-qt-res.rc
+
+BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
+  -I$(builddir)/qt/forms -DQT_NO_KEYWORDS
+
+qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_libbitcoinqt_a_SOURCES = $(BITCOIN_QT_CPP) $(BITCOIN_QT_H) $(QT_FORMS_UI) \
+  $(QT_QRC) $(QT_QRC_LOCALE) $(QT_TS) $(PROTOBUF_PROTO) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS)
+
+nodist_qt_libbitcoinqt_a_SOURCES = $(QT_MOC_CPP) $(QT_MOC) $(PROTOBUF_CC) \
+  $(PROTOBUF_H) $(QT_QRC_CPP) $(QT_QRC_LOCALE_CPP)
+
+# forms/foo.h -> forms/ui_foo.h
+QT_FORMS_H=$(join $(dir $(QT_FORMS_UI)),$(addprefix ui_, $(notdir $(QT_FORMS_UI:.ui=.h))))
+
+# Most files will depend on the forms and moc files as includes. Generate them
+# before anything else.
+$(QT_MOC): $(QT_FORMS_H)
+$(qt_libbitcoinqt_a_OBJECTS) $(qt_avianitecoin_qt_OBJECTS) : | $(QT_MOC)
+
+#Generating these with a half-written protobuf header leads to wacky results.
+#This makes sure it's done.
+$(QT_MOC): $(PROTOBUF_H)
+$(QT_MOC_CPP): $(PROTOBUF_H)
+
+# avianitecoin-qt binary #
+qt_avianitecoin_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
+  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
+qt_avianitecoin_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
+
+qt_avianitecoin_qt_SOURCES = qt/avianitecoin.cpp
+if TARGET_DARWIN
+  qt_avianitecoin_qt_SOURCES += $(BITCOIN_MM)
+endif
+if TARGET_WINDOWS
+  qt_avianitecoin_qt_SOURCES += $(BITCOIN_RC)
+endif
+qt_avianitecoin_qt_LDADD = qt/libbitcoinqt.a $(LIBBITCOIN_SERVER)
+if ENABLE_WALLET
+qt_avianitecoin_qt_LDADD += $(LIBBITCOIN_UTIL) $(LIBBITCOIN_WALLET)
+endif
+if ENABLE_ZMQ
+qt_avianitecoin_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
+endif
+qt_avianitecoin_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
+  $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
+qt_avianitecoin_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
+qt_avianitecoin_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX
+
+#locale/foo.ts -> locale/foo.qm
+QT_QM=$(QT_TS:.ts=.qm)
+
+SECONDARY: $(QT_QM)
+
+$(srcdir)/qt/avianitecoinstrings.cpp: $(libbitcoin_server_a_SOURCES) $(libbitcoin_wallet_a_SOURCES) $(libbitcoin_common_a_SOURCES) $(libbitcoin_zmq_a_SOURCES) $(libbitcoin_util_a_SOURCES)
+	@test -n $(XGETTEXT) || echo "xgettext is required for updating translations"
+	$(AM_V_GEN) cd $(srcdir); XGETTEXT=$(XGETTEXT) PACKAGE_NAME="$(PACKAGE_NAME)" $(PYTHON) ../share/qt/extract_strings_qt.py $^
+
+translate: $(srcdir)/qt/avianitecoinstrings.cpp $(QT_FORMS_UI) $(QT_FORMS_UI) $(BITCOIN_QT_BASE_CPP) qt/avianitecoin.cpp $(BITCOIN_QT_WINDOWS_CPP) $(BITCOIN_QT_WALLET_CPP) $(BITCOIN_QT_H) $(BITCOIN_MM)
+	@test -n $(LUPDATE) || echo "lupdate is required for updating translations"
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LUPDATE) $^ -locations relative -no-obsolete -ts $(srcdir)/qt/locale/avianitecoin_en.ts
+
+$(QT_QRC_LOCALE_CPP): $(QT_QRC_LOCALE) $(QT_QM)
+	@test -f $(RCC)
+	@cp -f $< $(@D)/temp_$(<F)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name avianitecoin_locale $(@D)/temp_$(<F) | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+	@rm $(@D)/temp_$(<F)
+
+$(QT_QRC_CPP): $(QT_QRC) $(QT_FORMS_H) $(RES_ICONS) $(RES_IMAGES) $(RES_CSS) $(PROTOBUF_H)
+	@test -f $(RCC)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(RCC) -name avianitecoin $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+CLEAN_QT = $(nodist_qt_libbitcoinqt_a_SOURCES) $(QT_QM) $(QT_FORMS_H) qt/*.gcda qt/*.gcno qt/temp_avianitecoin_locale.qrc
+
+CLEANFILES += $(CLEAN_QT)
+
+avianitecoin_qt_clean: FORCE
+	rm -f $(CLEAN_QT) $(qt_libbitcoinqt_a_OBJECTS) $(qt_avianitecoin_qt_OBJECTS) qt/avianitecoin-qt$(EXEEXT) $(LIBBITCOINQT)
+
+avianitecoin_qt : qt/avianitecoin-qt$(EXEEXT)
+
+ui_%.h: %.ui
+	@test -f $(UIC)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(UIC) -o $@ $< || (echo "Error creating $@"; false)
+
+%.moc: %.cpp
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+moc_%.cpp: %.h
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(MOC) $(DEFAULT_INCLUDES) $(QT_INCLUDES) $(MOC_DEFS) $< | \
+	  $(SED) -e '/^\*\*.*Created:/d' -e '/^\*\*.*by:/d' > $@
+
+%.qm: %.ts
+	@test -f $(LRELEASE)
+	@$(MKDIR_P) $(@D)
+	$(AM_V_GEN) QT_SELECT=$(QT_SELECT) $(LRELEASE) -silent $< -qm $@

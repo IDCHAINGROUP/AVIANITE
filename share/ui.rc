@@ -1,0 +1,5 @@
+bitcoin               ICON    "pixmaps/avianitecoin.ico"
+
+#include "wx/msw/wx.rc"
+
+favicon               ICON    "pixmaps/favicon.ico"
